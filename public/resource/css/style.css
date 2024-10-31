@@ -1,0 +1,67 @@
+.gradient-background {
+    background: linear-gradient(300deg, #0E2954, #1F6E8C, #2E8A99);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+@keyframes gradient-animation {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+* {
+    font-family: "Rubik", sans-serif;
+}
+
+.hero {
+    color: rgb(243, 243, 237);
+    background-image: url('/resource/img/heroBackground.jpg');
+}
+
+.overlay {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(14, 41, 84, 0.7);
+    z-index: 1;
+}
+
+#skills {
+    color: #808080;
+}
+
+#about-me {
+    color: #808080;
+}
+
+svg {
+    fill: #2E8A99;
+}
+
+#upload {
+    padding-bottom: 20px;
+}
+
+#contact {
+    color: rgb(243, 243, 237);
+    background-image: url('/resource/img/heroBackground3.jpg');
+}
+
+.overlay2 {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(14, 41, 84, 0.8);
+    z-index: 1;
+}
