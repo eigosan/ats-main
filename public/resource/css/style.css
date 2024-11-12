@@ -1,5 +1,5 @@
 .gradient-background {
-    background: linear-gradient(300deg, #0E2954, #1F6E8C, #2E8A99);
+    background: linear-gradient(300deg, #0E2954, hsl(197, 64%, 34%), #2E8A99);
     background-size: 180% 180%;
     animation: gradient-animation 18s ease infinite;
 }
@@ -22,30 +22,71 @@
     font-family: "Rubik", sans-serif;
 }
 
-.hero {
+#hero {
+    height: 100vh;
     color: rgb(243, 243, 237);
     background-image: url('/resource/img/heroBackground.jpg');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: start;
 }
 
-.overlay {
+#overlay {
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    height: 100%;
     background-color: rgba(14, 41, 84, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 1;
 }
 
-#skills {
-    color: #808080;
-}
-
 #about-me {
-    color: #808080;
+    position: relative;
+    /* Make the parent element relative for absolute positioning */
+    color: #ffffff;
+    height: 100vh;
+    overflow: hidden;
+    /* Prevent content overflow */
 }
 
-svg {
-    fill: #2E8A99;
+#about-me::before {
+    content: "";
+    /* Required to create a pseudo-element */
+    position: absolute;
+    /* Position it absolutely within the parent */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/resource/img/heroBackground2.jpg');
+    background-size: cover;
+    /* Cover the entire area */
+    background-position: center;
+    /* Center the background image */
+    opacity: 0.6;
+    /* Change this value for desired opacity */
+    z-index: 0;
+    /* Place it behind other content */
+}
+
+#about-me>* {
+    position: relative;
+    /* Ensure child elements appear above the pseudo-element */
+    z-index: 1;
+    /* Place child content above the background */
+}
+
+#about {
+    background-color: rgba(14, 41, 84, 0.8);
 }
 
 #upload {
@@ -64,4 +105,15 @@ svg {
     bottom: 0;
     background-color: rgba(14, 41, 84, 0.8);
     z-index: 1;
+}
+
+/* job listing */
+.card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }

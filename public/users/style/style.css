@@ -17,3 +17,14 @@
         background-position: 0% 50%;
     }
 }
+
+/* job listing */
+.card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

@@ -7,16 +7,30 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ApplicationFormController;
 use App\Http\Controllers\ApplicantList;
 use App\Http\Controllers\JobPostingController;
+use App\Http\Controllers\HomePage;
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
-    return view('index');
+    return view('homepage.index');
+});
+
+//home page
+Route::group([], function () {
+    Route::get('/about', [HomePage::class, 'about'])->name('about');
+    Route::get('/listing', [HomePage::class, 'listing'])->name('listing');
 });
 
 
 //user
-Route::get('/dashboard', function () {
-    return view('user.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'index'])->name('dashboard');
+
+});
+
+
+// Route::get('/dashboard', function () {
+//     return view('user.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
