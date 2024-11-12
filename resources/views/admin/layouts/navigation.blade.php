@@ -22,6 +22,9 @@
                 </div>
             </div>
 
+            <!-- Resume Filtering-->
+
+
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <x-dropdown align="right" width="48">
