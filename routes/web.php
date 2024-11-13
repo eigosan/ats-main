@@ -30,24 +30,6 @@ Route::middleware('auth')->group(function () {
 });
 
 
-//Resume
-Route::get('/admin/filter', [filterResume::class, 'showFilteredResults'])->name('admin.filter');
-Route::get('/resume/filter', [filterResume::class, 'showForm'])->name('resume.filter');
-Route::get('/resume/filter', [filterResume::class, 'showForm'])->name('resume.filter.form');
-Route::post('/resume/filter', [filterResume::class, 'filterResume'])->name('resume.filter.submit');
-Route::resource('resumes', filterResume::class); // Automatically creates all CRUD routes
-Route::post('/resume/store', [filterResume::class, 'store'])->name('resume.store');
-Route::post('/classify-resume', [classifyResume::class, 'classify'])->name('classify.resume');
-// Show the form to submit resume data
-Route::get('/resume/submit', [filterResume::class, 'showForm'])->name('resume.submit');
-
-// Store form data and NLP results
-Route::post('/resume/submit', [filterResume::class, 'store'])->name('resume.store');
-
-// Show filtered resumes to the admin
-Route::get('/resume/filter', [filterResume::class, 'filter'])->name('resume.filter');
-
-
 // Route::get('/dashboard', function () {
 //     return view('user.dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
@@ -90,4 +72,26 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::delete('/jobs/delete/{id}', [JobPostingController::class, 'delete'])->name('jobs.delete');
 });
 
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/filter', [filterResume::class, 'index'])->name('resume.index');
+    Route::get('/admin/filter', [filterResume::class, 'filter'])->name('resume.filter');
+});
+
+//Resume
+// Route::get('/admin/filter', [filterResume::class, 'showFilteredResults'])->name('admin.filter');
+// Route::get('/resume/filter', [filterResume::class, 'showForm'])->name('resume.filter');
+// Route::get('/resume/filter', [filterResume::class, 'showForm'])->name('resume.filter.form');
+// Route::post('/resume/filter', [filterResume::class, 'filterResume'])->name('resume.filter.submit');
+// Route::resource('resumes', filterResume::class); // Automatically creates all CRUD routes
+// Route::post('/resume/store', [filterResume::class, 'store'])->name('resume.store');
+// Route::post('/classify-resume', [classifyResume::class, 'classify'])->name('classify.resume');
+// // Show the form to submit resume data
+// Route::get('/resume/submit', [filterResume::class, 'showForm'])->name('resume.submit');
+
+// // Store form data and NLP results
+// Route::post('/resume/submit', [filterResume::class, 'store'])->name('resume.store');
+
+// // Show filtered resumes to the admin
+// Route::get('/resume/filter', [filterResume::class, 'filter'])->name('resume.filter');
 require __DIR__ . '/auth.php';

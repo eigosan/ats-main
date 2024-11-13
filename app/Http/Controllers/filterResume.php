@@ -13,10 +13,16 @@ use SplTempFileObject;
 
 class filterResume extends Controller
 {
-    public function showForm()
+    public function index()
     {
-        return view('resume.filter');
+        return view('admin.resume.index');
     }
+
+    public function filter()
+    {
+        return view('admin.resume.filter');
+    }
+
 
     // Store data into a CSV file and process NLP
     public function store(Request $request)
@@ -86,17 +92,17 @@ class filterResume extends Controller
     }
 
     // Display filtered resumes (admin view)
-    public function filter(Request $request)
-    {
-        // Get filter criteria from the form
-        $job_position = $request->input('job_position');
-        $nlp_result = $request->input('nlp_result');
+    // public function filter(Request $request)
+    // {
+    //     // Get filter criteria from the form
+    //     $job_position = $request->input('job_position');
+    //     $nlp_result = $request->input('nlp_result');
 
-        // Filter the CSV data based on the criteria
-        $filteredResumes = $this->filterCSV($job_position, $nlp_result);
+    //     // Filter the CSV data based on the criteria
+    //     $filteredResumes = $this->filterCSV($job_position, $nlp_result);
 
-        return view('resume.index', compact('filteredResumes'));
-    }
+    //     return view('resume.index', compact('filteredResumes'));
+    // }
 
     // Helper function to filter CSV based on given criteria
     private function filterCSV($job_position, $nlp_result)
@@ -116,8 +122,10 @@ class filterResume extends Controller
             // Loop through the records and apply filters
             foreach ($records as $row) {
                 // Filter based on job position and NLP result
-                if (($job_position && strpos($row['job_position'], $job_position) !== false) ||
-                    ($nlp_result && strpos($row['nlp_result'], $nlp_result) !== false)) {
+                if (
+                    ($job_position && strpos($row['job_position'], $job_position) !== false) ||
+                    ($nlp_result && strpos($row['nlp_result'], $nlp_result) !== false)
+                ) {
                     $filteredData[] = $row;
                 }
             }
