@@ -15,23 +15,24 @@
                     <table class="table-auto w-full">
                         <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Job Position</th>
+                                <th>Job title</th>
+                                <th>Company</th>
+                                <th>Address</th>
                                 <th>Education</th>
-                                <th>Action</th>
+                                <th>Job description</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{-- @foreach ($filteredResumes as $resume)
-                            <tr>
-                                <td>{{ $resume->first_name }}</td>
-                                <td>{{ $resume->last_name }}</td>
-                                <td>{{ $resume->job_position }}</td>
-                                <td>{{ $resume->education }}</td>
-                                <td><a href="{{ route('resume.view', $resume->id) }}" class="text-blue-600">View</a></td>
-                            </tr>
-                            @endforeach --}}
+                            @foreach ($filteredResults as $resume)
+                                <tr>
+                                    <td>{{ $resume->job_title }}</td>
+                                    <td>{{ $resume->company }}</td>
+                                    <td>{{ $resume->address }}</td>
+                                    <td>{{ $resume->job_description }}</td>
+                                    <td><a href="" class="text-blue-600">View</a>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

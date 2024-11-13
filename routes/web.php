@@ -76,6 +76,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/filter', [filterResume::class, 'index'])->name('resume.index');
     Route::get('/admin/filter', [filterResume::class, 'filter'])->name('resume.filter');
+    Route::post('/admin/filter/results', [filterResume::class, 'filterResults'])->name('filter.results');
 });
 
 //Resume
