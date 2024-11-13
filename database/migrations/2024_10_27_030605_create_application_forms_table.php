@@ -18,11 +18,13 @@ return new class extends Migration {
             $table->string('email')->nullable(false);
             $table->string('phone_number')->nullable(false);
             $table->string('job_position')->nullable(false);
-            $table->string('additional_info');
+            $table->string('additional_info')->nullable();
+            $table->json('education')->nullable();  // Store multiple education entries as JSON
+            $table->json('work_experience')->nullable(); // Store multiple work experience entries as JSON
+            $table->text('skills')->nullable(); // Text field for skills input
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            // $table->foreignId('user_id')->constrained()->onDelete('cascade');
         });
     }
 
