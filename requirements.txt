@@ -1,0 +1,15 @@
+#Core Libraries
+psycopg2==2.9.7
+pandas==1.5.3
+scikit-learn==1.2.0
+numpy==1.23.5
+
+#NLP Libraries
+nltk==3.8.1
+
+#Text feature extraction
+scipy==1.9.3
+joblib==1.2.0
+
+#Additional utilities
+pickle5==0.0.13

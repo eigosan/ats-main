@@ -3,8 +3,12 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\JobPosting;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +17,42 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        DB::table('users')->insert([
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('admin1234'),
+            'usertype' => 'admin',
+            'created_at' => now(),
+            'updated_at' => now(),
+
         ]);
+
+        for ($i = 0; $i <= 10; $i++) {
+            User::create([
+
+                'name' => "User $i",
+                'email' => "user$i@user.com",
+                'password' => Hash::make('password'),
+                'usertype' => 'user',
+                'created_at' => now(),
+                'updated_at' => now(),
+
+            ]);
+
+        }
+
+        // DB::table('job_postings')->insert([
+
+        //     'job_title',
+        //     'company',
+        //     'address',
+        //     'job_description',
+        //     'job_category',
+        //     'job_type',
+
+
+        // ]);
+
     }
 }
