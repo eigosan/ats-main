@@ -14,6 +14,11 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('department.index')" :active="request()->routeIs('department.index')" class="text-slate-50 hover:text-cyan-400">
+                        {{ __('Departments') }}
+                    </x-nav-link>
+                </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('jobs.index')" :active="request()->routeIs('jobs.index')" class="text-slate-50 hover:text-cyan-400">

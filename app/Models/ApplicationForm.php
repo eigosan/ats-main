@@ -22,8 +22,17 @@ class ApplicationForm extends Model
         'email',
         'phone_number',
         'job_position',
-        'additional_info',
-        'user_id',
+        'education_level',
+        'other_education',
+        'graduation_year',
+        'institution',
+        'company_name',
+        'position',
+        'start_date',
+        'end_date',
+        'job_description',
+        'skills',
+        'resume',
+        'user_id'
     ];
-
 }

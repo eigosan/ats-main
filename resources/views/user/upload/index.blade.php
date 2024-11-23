@@ -29,6 +29,8 @@
                                         <th>Email Address</th>
                                         <th>Phone Number</th>
                                         <th>Job Position</th>
+                                        <th>Resume</th>
+
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -41,6 +43,18 @@
                                             <td class="align-middle">{{ $form->email }}</td>
                                             <td class="align-middle">{{ $form->phone_number }}</td>
                                             <td class="align-middle">{{ $form->job_position }}</td>
+                                            <td class="align-middle">
+                                                @if ($form->resume)
+                                                    <!-- If the resume exists, show the button -->
+                                                    <a href="{{ asset('storage/' . $form->resume) }}" target="_blank"
+                                                        class="inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                                                        View Resume
+                                                    </a>
+                                                @else
+                                                    <!-- If no resume is uploaded, show the text -->
+                                                    <span>No uploaded document</span>
+                                                @endif
+                                            </td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a href="{{ route('upload.edit', $form->id) }}" type="button"

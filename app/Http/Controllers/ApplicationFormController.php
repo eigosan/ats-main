@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ApplicationForm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ApplicationFormController extends Controller
 {
@@ -23,21 +24,43 @@ class ApplicationFormController extends Controller
 
     public function store(Request $request)
     {
-        $sample = auth()->user()->id;
+        // Get the authenticated user's ID
+        $userId = auth()->user()->id;
+
+        // Validate the incoming request data
         $validatedData = $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|string|max:15',
             'job_position' => 'required|string|max:255',
-            'additional_info' => 'nullable|string',
-
+            'education_level' => 'required|string|max:255',
+            'other_education' => 'nullable|string|max:255',
+            'graduation_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'institution' => 'required|string|max:255',
+            'company_name' => 'nullable|string|max:255',
+            'position' => 'nullable|string|max:255',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'job_description' => 'nullable|string',
+            'skills' => 'nullable|string',
+            'resume' => 'nullable|file|mimes:pdf,docx|max:5120', // 5MB max
         ]);
 
-        $validatedData['user_id'] = $sample;
+        $validatedData['user_id'] = $userId;
 
+
+        // Handle file upload for the resume
+        if ($request->hasFile('resume')) {
+            $resumePath = $request->file('resume')->store('resumes', 'public'); // Save in the 'resumes' directory under 'storage/app/public'
+            $validatedData['resume'] = $resumePath;
+        }
+
+
+        // Create a new application record
         ApplicationForm::create($validatedData);
 
+        // Check if creation was successful and set the session message
         if ($validatedData) {
             session()->flash('success', 'Application Created Successfully');
             return redirect()->route('upload.index');
@@ -55,23 +78,47 @@ class ApplicationFormController extends Controller
 
     public function update(Request $request, $id)
     {
+        // Find the application record or fail if not found
         $application = ApplicationForm::findOrFail($id);
 
-        $first_name = $request->first_name;
-        $last_name = $request->last_name;
-        $email = $request->email;
-        $phone_number = $request->phone_number;
-        $job_position = $request->job_position;
-        $additional_info = $request->additional_info;
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'phone_number' => 'required|string|max:15',
+            'job_position' => 'required|string|max:255',
+            'education_level' => 'required|string|max:255',
+            'other_education' => 'nullable|string|max:255',
+            'graduation_year' => 'required|integer|min:1900|max:' . date('Y'),
+            'institution' => 'required|string|max:255',
+            'company_name' => 'nullable|string|max:255',
+            'position' => 'nullable|string|max:255',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date|after_or_equal:start_date',
+            'job_description' => 'nullable|string',
+            'skills' => 'nullable|string',
+            'resume' => 'nullable|file|mimes:pdf,docx|max:5120', // Optional, max 5MB
+        ]);
 
-        $application->first_name = $first_name;
-        $application->last_name = $last_name;
-        $application->email = $email;
-        $application->phone_number = $phone_number;
-        $application->job_position = $job_position;
-        $application->additional_info = $additional_info;
-        $validatedData = $application->save();
-        if ($validatedData) {
+        // Handle file upload for the resume (if provided)
+        if ($request->hasFile('resume')) {
+            // Delete the old resume file if it exists
+            if ($application->resume) {
+                \Storage::disk('public')->delete($application->resume);
+            }
+
+            // Save the new file
+            $resumePath = $request->file('resume')->store('resumes', 'public');
+            $validatedData['resume'] = $resumePath;
+        }
+
+
+        // Update the application record with validated data
+        $application->update($validatedData);
+
+        // Check if the update was successful and set the session message
+        if ($application) {
             session()->flash('success', 'Application Updated Successfully');
             return redirect()->route('upload.index');
         } else {

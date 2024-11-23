@@ -10,6 +10,7 @@ use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\HomePage;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\filterResume;
+use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\classifyResume;
 
 Route::get('/', function () {
@@ -70,6 +71,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/jobs/edit/{id}', [JobPostingController::class, 'edit'])->name('jobs.edit');
     Route::put('/jobs/update/{id}', [JobPostingController::class, 'update'])->name('jobs.update');
     Route::delete('/jobs/delete/{id}', [JobPostingController::class, 'delete'])->name('jobs.delete');
+});
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/department', [DepartmentsController::class, 'index'])->name('department.index');
+    Route::get('/department/create', [DepartmentsController::class, 'create'])->name('department.create');
 });
 
 

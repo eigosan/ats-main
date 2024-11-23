@@ -45,6 +45,24 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
     </script>
     <script>
+        // Listen for change events on the select dropdown
+        document.getElementById('education_level').addEventListener('change', function() {
+            // Get the selected value
+            var selectedValue = this.value;
+
+            // Get the "Other Education" group and the input field
+            var otherEducationGroup = document.getElementById('other_education_group');
+            var otherEducationField = document.getElementById('other_education');
+
+            // Show or hide the "Others" input based on selection
+            if (selectedValue === 'others') {
+                otherEducationGroup.style.display = 'block';
+                otherEducationField.setAttribute('required', 'required');
+            } else {
+                otherEducationGroup.style.display = 'none';
+                otherEducationField.removeAttribute('required');
+            }
+        });
         const myModal = document.getElementById('myModal')
         const myInput = document.getElementById('myInput')
 

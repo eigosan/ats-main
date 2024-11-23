@@ -13,15 +13,22 @@ return new class extends Migration {
         Schema::create('application_forms', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->string('first_name')->nullable(false);
-            $table->string('last_name')->nullable(false);
-            $table->string('email')->nullable(false);
-            $table->string('phone_number')->nullable(false);
-            $table->string('job_position')->nullable(false);
-            $table->string('additional_info')->nullable();
-            $table->json('education')->nullable();  // Store multiple education entries as JSON
-            $table->json('work_experience')->nullable(); // Store multiple work experience entries as JSON
-            $table->text('skills')->nullable(); // Text field for skills input
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email')->unique();
+            $table->string('phone_number');
+            $table->string('job_position');
+            $table->string('education_level');
+            $table->string('other_education')->nullable();
+            $table->integer('graduation_year');
+            $table->string('institution');
+            $table->string('company_name')->nullable();
+            $table->string('position')->nullable();
+            $table->date('start_date')->nullable();
+            $table->date('end_date')->nullable();
+            $table->text('job_description')->nullable();
+            $table->text('skills')->nullable();
+            $table->string('resume');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
