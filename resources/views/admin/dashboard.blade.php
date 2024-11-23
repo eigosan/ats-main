@@ -1,12 +1,14 @@
 <x-admin-app-layout>
     <div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="container-fluid px-4">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight my-4">
+            <x-slot name="header">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
                     {{ __('Admin Dashboard') }}
                 </h2>
+            </x-slot>
+            <div class="container-fluid ">
                 {{-- cards --}}
-                <div class="row">
+                {{-- <div class="row">
                     <div class="col-xl-3 col-md-6">
                         <div class="card bg-primary text-white mb-4">
                             <div class="card-body">Primary Card</div>
@@ -43,9 +45,62 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 {{-- charts --}}
-                <div class="row">
+                <div class="row pt-2">
+                    <div class="col-xl-6">
+                        <div class="card mb-4">
+                            <div class="card-header d-flex align-items-center justify-content-between p-3">
+                                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                                    {{ __('Organizations') }}
+                                </h2>
+                                @if ($departments->isEmpty())
+                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                        data-bs-target="#createOrganizationModal">
+                                        Create
+                                    </button>
+                                @else
+                                    <a class="btn btn-primary" href="{{ route('organization.index') }}">+</a>
+                                @endif
+                            </div>
+                            <div class="card-body" style="height: 300px; overflow-y: auto;">
+                                <div>
+                                    @if ($departments->isEmpty())
+                                        <p class="text-center text-muted py-4">No Organizations Found.</p>
+                                    @else
+                                        <table class="table table-bordered table-hover table-striped">
+                                            <thead class="table-primary">
+                                                <tr>
+                                                    <th>Organization Name</th>
+                                                    <th>Job Count</th>
+                                                    <th>Created Date</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($departments as $organization)
+                                                    <tr>
+                                                        <td>
+                                                            <div>
+                                                                <a href="{{ route('organization.view', $organization->id) }}"
+                                                                    class="text-decoration-none">{{ $organization->organization_name }}</a>
+                                                            </div>
+                                                        </td>
+                                                        <td>{{ $organization->jobs_count }}</td>
+                                                        <td>{{ $organization->created_at->format('Y-m-d') }}</td>
+                                                        <td>
+                                                            <a href="{{ route('organization.view', $organization->id) }}"
+                                                                class="btn btn-secondary">view</a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-xl-6">
                         <div class="card mb-4">
                             <div class="card-header d-flex align-items-center justify-content-between p-3">
@@ -53,8 +108,7 @@
                                     {{ __('Job Listing') }}
                                 </h2>
                                 @if ($jobs->isEmpty())
-                                    <a href="{{ route('jobs.create') }}" type="button" class="btn btn-primary">Create
-                                        Jobs</a>
+                                    <a href="{{ route('jobs.create') }}" type="button" class="btn btn-primary">+</a>
                                 @else
                                     <p>Total: {{ $jobsTotal }}</p>
                                 @endif
@@ -94,16 +148,6 @@
                                     @endif
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-6">
-                        <div class="card mb-4">
-                            <div class="card-header d-flex align-items-center justify-content-between p-3">
-                                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                                    {{ __('Bar Chart Example') }}
-                                </h2>
-                            </div>
-                            <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                         </div>
                     </div>
                 </div>

@@ -11,6 +11,7 @@
                             <span class="badge bg-primary">{{ $organization->job_status }}</span>
                             <span class="ms-2 text-muted">{{ $organization->owner_name }}</span>
                         </div>
+                        <a class="btn btn-secondary" href="{{ route('organization.index') }}">Back</a>
                     </div>
 
                     <!-- Tags Section -->
