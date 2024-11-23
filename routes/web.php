@@ -76,6 +76,9 @@ Route::middleware(['auth', 'admin'])->group(function () {
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/organization', [OrganizationController::class, 'index'])->name('organization.index');
     Route::post('/organization/store', [OrganizationController::class, 'store'])->name('organization.store');
+    Route::get('/organization/view/{id}', [OrganizationController::class, 'view'])->name('organization.view');
+    Route::get('/organization/edit/{id}', [OrganizationController::class, 'edit'])->name('organization.edit');
+    Route::put('/organization/update/{id}', [OrganizationController::class, 'update'])->name('organization.update');
 });
 
 
