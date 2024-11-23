@@ -9,10 +9,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('upload.update', $application->id) }}" method="POST">
+                    <form action="{{ route('upload.update', $application->id) }}" method="POST" enctype="multipart/form-data">   <!-- added enctype -->
+                        @csrf           <!-- moved these 2 out of the container -->
+                        @method('PUT')  <!-- moved these 2 out of the container -->
                         <div class="container">
-                            @csrf
-                            @method('PUT')
                             <div class="row mb-2">
                                 <div class="container">
                                     <!-- Personal Information Section -->
@@ -166,7 +166,7 @@
                                         @if (isset($application->resume) && $application->resume)
                                             <div class="mt-2">
                                                 <p>Existing Resume: <strong>{{ $application->resume }}</strong></p>
-                                                <a href="{{ Storage::url('resumes/' . $application->resume) }}"
+                                                <a href="{{ Storage::url('public/resumes/' . $application->resume) }}"
                                                     target="_blank" class="text-blue-500">Download Existing Resume</a>
                                             </div>
                                         @endif
