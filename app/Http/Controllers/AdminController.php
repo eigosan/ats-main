@@ -11,15 +11,27 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $application = ApplicationForm::all(); // Retrieve all application forms
-        $totalApplication = $application->count();
+        // Retrieve all application forms
+        $application = ApplicationForm::all();
+        $totalApplication = $application->count(); // Count of application forms
 
-        $jobs = JobPosting::all();// retirve all application forms
-        $jobsTotal = $jobs->count();
+        // Retrieve all job postings
+        $jobs = JobPosting::all();
+        $jobsTotal = $jobs->count(); // Count of job postings
 
+        // Retrieve all organizations
         $departments = Organization::all();
-        $totalDepartments = $departments->count();
+        $totalDepartments = $departments->count(); // Count of organizations
 
-        return view('admin.dashboard', compact('application', 'totalApplication', 'jobs', 'jobsTotal', 'departments', 'totalDepartments'));
+        // Pass all necessary data to the view
+        return view('admin.dashboard', compact(
+            'application',
+            'totalApplication',
+            'jobs',
+            'jobsTotal',
+            'departments',
+            'totalDepartments'
+        ));
     }
+
 }

@@ -14,12 +14,12 @@
                             {{ __('Job listing') }}
                         </h2>
 
-                        @if ($jobs->isEmpty())
+                        {{-- @if ($jobs->isEmpty())
                             <a href="{{ route('jobs.create') }}" type="button" class="btn btn-primary">Create Jobs</a>
                         @else
                             <p>Total: {{ $totalJobs }}</p>
                             <a href="{{ route('jobs.create') }}" type="button" class="btn btn-primary">Post</a>
-                        @endif
+                        @endif --}}
 
                     </div>
                     <hr>
@@ -34,6 +34,7 @@
                                         <th>Company</th>
                                         <th>Type</th>
                                         <th>Address</th>
+                                        <th>Organization</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -46,6 +47,8 @@
                                             <td class="align-middle">{{ $form->company }}</td>
                                             <td class="align-middle">{{ $form->job_type }}</td>
                                             <td class="align-middle">{{ $form->address }}</td>
+                                            <td class="align-middle">{{ $form->organization->organization_name }}</td>
+
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a href="{{ route('jobs.view', $form->id) }}" type="button"

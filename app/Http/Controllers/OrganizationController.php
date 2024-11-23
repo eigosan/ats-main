@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Organization;
+use App\Models\JobPosting;
 
 class OrganizationController extends Controller
 {
@@ -38,18 +39,32 @@ class OrganizationController extends Controller
     // public function view($id, Request $request)
     // {
     //     $organization = Organization::findOrFail($id);
-    //     return view('admin.organization.view', compact('organization'));
+    //     // Get the tab from the query parameter, defaulting to 'jobs'
+    //     $activeTab = $request->query('tab', 'jobs');
+    //     $jobPosting = JobPosting::where('user_id', $userId)->get();
+    //     return view('admin.organization.view', [
+    //         'organization' => $organization,
+    //         'activeTab' => $activeTab,
+    //         'jobPosting' => $jobPosting,
+    //     ]);
     // }
 
     public function view($id, Request $request)
     {
+        // Fetch the organization by its ID or fail if it doesn't exist
         $organization = Organization::findOrFail($id);
-        // Get the tab from the query parameter, defaulting to 'jobs'
+
+        // Get the active tab from the query parameter, defaulting to 'jobs'
         $activeTab = $request->query('tab', 'jobs');
 
+        // Fetch job postings related to the organization (using the foreign key relationship)
+        $jobPostings = JobPosting::where('organization_id', $id)->get();
+
+        // Return the view with the relevant data
         return view('admin.organization.view', [
             'organization' => $organization,
             'activeTab' => $activeTab,
+            'jobPostings' => $jobPostings,
         ]);
     }
 
@@ -88,6 +103,19 @@ class OrganizationController extends Controller
         $organization->update(array_merge($validatedData, ['updated_by' => auth()->user()->name]));
 
         return redirect()->route('organization.index')->with('success', 'Organization updated successfully.');
+    }
+
+    public function delete($id)
+    {
+        $table = Organization::findOrFail($id)->delete();
+        if ($table) {
+            session()->flash('success', 'Organization Deleted Successfully');
+            return redirect()->route('organization.index');
+        } else {
+            session()->flash('error', 'A problem occurred');
+            return redirect()->route('organization.index');
+        }
+
     }
 
 

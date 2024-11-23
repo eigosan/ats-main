@@ -12,6 +12,7 @@ return new class extends Migration {
     {
         Schema::create('job_postings', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('organization_id');
             $table->string('job_title');
             $table->string('company');
             $table->text('address');
@@ -19,6 +20,8 @@ return new class extends Migration {
             $table->string('job_category');
             $table->string('job_type')->default('Full-time');
             $table->timestamps();
+
+            $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
         });
     }
 

@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->enum('job_stage', ['Application', 'Interview', 'Offer', 'Hired', 'Rejected'])->default('Application'); // Job stage
             $table->string('created_by')->nullable(); // Admin who created the department
             $table->string('updated_by')->nullable(); // Admin who updated the department
+            $table->foreignId('organization_id')->nullable()->index();
             $table->timestamps(); // created_at and updated_at fields
         });
     }

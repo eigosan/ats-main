@@ -5,21 +5,36 @@ use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 use App\Models\JobPosting;
+use App\Models\organization;
 
 class JobPostingController extends Controller
 {
     public function index()
     {
-        $jobs = JobPosting::all();
+        // Fetch all job postings with the related organization
+        $jobs = JobPosting::with('organization')->get();
+
+        // Get the total count of job postings
         $totalJobs = $jobs->count();
-        return view('admin.job.index', compact('jobs', 'totalJobs'));
 
+        // Fetch all organizations if needed (optional)
+        $organizations = Organization::all();
+
+        // Pass jobs, totalJobs, and organizations to the view
+        return view('admin.job.index', compact('jobs', 'totalJobs', 'organizations'));
     }
 
-    public function create()
+
+    public function create($id)
     {
-        return view('admin.job.create');
+        // Fetch the specific organization by its ID
+        $organization = Organization::findOrFail($id);
+
+        // Pass the organization to the view, so it can be used in the form
+        return view('admin.job.create', compact('organization'));
     }
+
+
 
     public function store(Request $request)
     {
@@ -31,7 +46,7 @@ class JobPostingController extends Controller
             'job_description' => 'string',
             'job_category' => 'required|string|max:255',
             'job_type' => 'required|string|max:255',
-
+            'organization_id' => 'required|exists:organization,id',
         ]);
 
         JobPosting::create($validatedData);

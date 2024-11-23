@@ -2,7 +2,7 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="container my-5">
+                <div class="p-6 text-gray-900">
                     <!-- Organization Header -->
                     <div class="d-flex justify-content-between align-items-center">
                         <h1 class="h4">{{ $organization->organization_name }}</h1>
@@ -15,9 +15,9 @@
                     </div>
 
                     <!-- Tags Section -->
-                    <div class="my-2">
+                    {{-- <div class="my-2">
                         <a href="#" class="text-decoration-none text-primary">+Tags</a>
-                    </div>
+                    </div> --}}
 
                     <!-- Navigation Tabs -->
                     @include('admin.organization.partials.nav-tabs', [

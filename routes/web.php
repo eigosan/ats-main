@@ -65,8 +65,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/jobs', [JobPostingController::class, 'index'])->name('jobs.index');
-    Route::get('/jobs/create', [JobPostingController::class, 'create'])->name('jobs.create');
-    Route::post('/jobs/create', [JobPostingController::class, 'store'])->name('jobs.store');
+    Route::get('/jobs/create/{id}', [JobPostingController::class, 'create'])->name('jobs.create');
+    Route::post('/jobs/store', [JobPostingController::class, 'store'])->name('jobs.store');
     Route::get('/jobs/view/{id}', [JobPostingController::class, 'view'])->name('jobs.view');
     Route::get('/jobs/edit/{id}', [JobPostingController::class, 'edit'])->name('jobs.edit');
     Route::put('/jobs/update/{id}', [JobPostingController::class, 'update'])->name('jobs.update');
@@ -79,6 +79,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/organization/view/{id}', [OrganizationController::class, 'view'])->name('organization.view');
     Route::get('/organization/edit/{id}', [OrganizationController::class, 'edit'])->name('organization.edit');
     Route::put('/organization/update/{id}', [OrganizationController::class, 'update'])->name('organization.update');
+    Route::delete('/organization/delete/{id}', [OrganizationController::class, 'delete'])->name('organization.delete');
 });
 
 

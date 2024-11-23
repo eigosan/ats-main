@@ -91,14 +91,38 @@
                                                             href="{{ route('organization.edit', $organization->id) }}">Edit</a>
                                                     </li>
                                                     <li>
-                                                        <form action="" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="dropdown-item text-danger"
-                                                                onclick="return confirm('Are you sure?')">Delete</button>
-                                                        </form>
+                                                        <button type="button" class="dropdown-item text-danger"
+                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            Delete
+                                                        </button>
                                                     </li>
                                                 </ul>
+                                            </div>
+                                            <div class="modal fade " id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                                Warning</h1>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure you want to delete the organization?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <form
+                                                                action="{{ route('organization.delete', $organization->id) }}"
+                                                                method="POST">
+                                                                @csrf
+                                                                @method('DELETE')
+                                                                <button type="submit"
+                                                                    class="btn btn-danger">Yes</button>
+                                                            </form>
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal" aria-label="Close">No</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

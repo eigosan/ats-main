@@ -55,11 +55,9 @@
                                     {{ __('Organizations') }}
                                 </h2>
                                 @if ($departments->isEmpty())
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                        data-bs-target="#createOrganizationModal">
-                                        Create
-                                    </button>
+                                    <a class="btn btn-primary" href="{{ route('organization.index') }}">+</a>
                                 @else
+                                    <p>Total: {{ $totalDepartments }}</p>
                                     <a class="btn btn-primary" href="{{ route('organization.index') }}">+</a>
                                 @endif
                             </div>
@@ -108,9 +106,10 @@
                                     {{ __('Job Listing') }}
                                 </h2>
                                 @if ($jobs->isEmpty())
-                                    <a href="{{ route('jobs.create') }}" type="button" class="btn btn-primary">+</a>
+                                    <a href="{{ route('jobs.index') }}" type="button" class="btn btn-primary">+</a>
                                 @else
                                     <p>Total: {{ $jobsTotal }}</p>
+                                    <a href="{{ route('jobs.index') }}" type="button" class="btn btn-primary">+</a>
                                 @endif
                             </div>
                             <div class="card-body" style="height: 300px; overflow-y: auto;">
@@ -123,6 +122,7 @@
                                                 <tr>
                                                     <th>Title</th>
                                                     <th>Type</th>
+                                                    <th>Organization</th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -133,6 +133,8 @@
                                                             <p>{{ $form->job_title }}</p>
                                                         </td>
                                                         <td class="align-middle">{{ $form->job_type }}</td>
+                                                        <td class="align-middle">
+                                                            {{ $form->organization->organization_name }}</td>
                                                         <td>
                                                             <div class="btn-group" role="group">
                                                                 <a href="{{ route('jobs.view', $form->id) }}"
