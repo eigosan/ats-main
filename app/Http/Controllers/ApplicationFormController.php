@@ -105,7 +105,7 @@ class ApplicationFormController extends Controller
         if ($request->hasFile('resume')) {
             // Delete the old resume file if it exists
             if ($application->resume) {
-                \Storage::disk('public')->delete($application->resume);
+                Storage::disk('public')->delete($application->resume);
             }
 
             // Save the new file

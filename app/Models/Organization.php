@@ -4,15 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Departments extends Model
+class organization extends Model
 {
-    //
-
-    protected $table = 'departments';
+    // 
+    protected $table = 'organization';
 
     protected $fillable = [
-        'department_name',
-        'position_name',
+        'organization_name',
+        'location',
+        'description',
         'headcount',
         'job_status',
         'job_stage',

@@ -10,7 +10,7 @@ use App\Http\Controllers\JobPostingController;
 use App\Http\Controllers\HomePage;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\filterResume;
-use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\classifyResume;
 
 Route::get('/', function () {
@@ -74,8 +74,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/department', [DepartmentsController::class, 'index'])->name('department.index');
-    Route::get('/department/create', [DepartmentsController::class, 'create'])->name('department.create');
+    Route::get('/organization', [OrganizationController::class, 'index'])->name('organization.index');
+    Route::post('/organization/store', [OrganizationController::class, 'store'])->name('organization.store');
 });
 
 
@@ -85,20 +85,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/admin/filter/results', [filterResume::class, 'filterResults'])->name('filter.results');
 });
 
-//Resume
-// Route::get('/admin/filter', [filterResume::class, 'showFilteredResults'])->name('admin.filter');
-// Route::get('/resume/filter', [filterResume::class, 'showForm'])->name('resume.filter');
-// Route::get('/resume/filter', [filterResume::class, 'showForm'])->name('resume.filter.form');
-// Route::post('/resume/filter', [filterResume::class, 'filterResume'])->name('resume.filter.submit');
-// Route::resource('resumes', filterResume::class); // Automatically creates all CRUD routes
-// Route::post('/resume/store', [filterResume::class, 'store'])->name('resume.store');
-// Route::post('/classify-resume', [classifyResume::class, 'classify'])->name('classify.resume');
-// // Show the form to submit resume data
-// Route::get('/resume/submit', [filterResume::class, 'showForm'])->name('resume.submit');
-
-// // Store form data and NLP results
-// Route::post('/resume/submit', [filterResume::class, 'store'])->name('resume.store');
-
-// // Show filtered resumes to the admin
-// Route::get('/resume/filter', [filterResume::class, 'filter'])->name('resume.filter');
 require __DIR__ . '/auth.php';

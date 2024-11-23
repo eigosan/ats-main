@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Http\Request;
 use App\Models\JobPosting;
@@ -22,6 +23,7 @@ class JobPostingController extends Controller
 
     public function store(Request $request)
     {
+        Log::info($request->all());
         $validatedData = $request->validate([
             'job_title' => 'required|string|max:255',
             'company' => 'required|string|max:255',
@@ -41,6 +43,7 @@ class JobPostingController extends Controller
             session()->flash('error', 'A problem occurred');
             return redirect()->route('jobs.index');
         }
+
     }
 
     public function view($id)

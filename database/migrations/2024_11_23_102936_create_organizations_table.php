@@ -10,10 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('departments', function (Blueprint $table) {
+        Schema::create('organization', function (Blueprint $table) {
             $table->id();
-            $table->string('department_name'); // Department name
-            $table->string('position_name');  // Position title in the department
+            $table->string('organization_name'); // organization name
+            $table->string('location');
+            $table->string('description');
             $table->integer('headcount')->default(0); // Number of employees in the position
             $table->enum('job_status', ['Open', 'Closed'])->default('Open'); // Job opening status
             $table->enum('job_stage', ['Application', 'Interview', 'Offer', 'Hired', 'Rejected'])->default('Application'); // Job stage
@@ -28,6 +29,7 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('departments');
+        Schema::dropIfExists('organization');
     }
+
 };
