@@ -77,55 +77,57 @@ class ApplicationFormController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // Find the application record or fail if not found
-        $application = ApplicationForm::findOrFail($id);
+{
+    // Find the application record or fail if not found
+    $application = ApplicationForm::findOrFail($id);
 
-        // Validate the incoming request data
-        $validatedData = $request->validate([
-            'first_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone_number' => 'required|string|max:15',
-            'job_position' => 'required|string|max:255',
-            'education_level' => 'required|string|max:255',
-            'other_education' => 'nullable|string|max:255',
-            'graduation_year' => 'required|integer|min:1900|max:' . date('Y'),
-            'institution' => 'required|string|max:255',
-            'company_name' => 'nullable|string|max:255',
-            'position' => 'nullable|string|max:255',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date|after_or_equal:start_date',
-            'job_description' => 'nullable|string',
-            'skills' => 'nullable|string',
-            'resume' => 'nullable|file|mimes:pdf,docx|max:5120', // Optional, max 5MB
-        ]);
+    // Validate the incoming request data
+    $validatedData = $request->validate([
+        'first_name' => 'required|string|max:255',
+        'last_name' => 'required|string|max:255',
+        'email' => 'required|email|max:255',
+        'phone_number' => 'required|string|max:15',
+        'job_position' => 'required|string|max:255',
+        'education_level' => 'required|string|max:255',
+        'other_education' => 'nullable|string|max:255',
+        'graduation_year' => 'required|integer|min:1900|max:' . date('Y'),
+        'institution' => 'required|string|max:255',
+        'company_name' => 'nullable|string|max:255',
+        'position' => 'nullable|string|max:255',
+        'start_date' => 'nullable|date',
+        'end_date' => 'nullable|date|after_or_equal:start_date',
+        'job_description' => 'nullable|string',
+        'skills' => 'nullable|string',
+        'resume' => 'nullable|file|mimes:pdf,docx|max:5120', // Optional, max 5MB
+    ]);
 
-        // Handle file upload for the resume (if provided)
-        if ($request->hasFile('resume')) {
-            // Delete the old resume file if it exists
-            if ($application->resume) {
-                \Storage::disk('public')->delete($application->resume);
-            }
-
-            // Save the new file
-            $resumePath = $request->file('resume')->store('resumes', 'public');
-            $validatedData['resume'] = $resumePath;
+    // Handle file upload for the resume (if provided)
+    if ($request->hasFile('resume')) {
+        // Delete the old resume file if it exists
+        if ($application->resume) {
+            \Storage::disk('public')->delete($application->resume);
         }
 
-
-        // Update the application record with validated data
-        $application->update($validatedData);
-
-        // Check if the update was successful and set the session message
-        if ($application) {
-            session()->flash('success', 'Application Updated Successfully');
-            return redirect()->route('upload.index');
-        } else {
-            session()->flash('error', 'A problem occurred');
-            return redirect()->route('upload.index');
-        }
+        // Save the new file
+        $resumePath = $request->file('resume')->store('resumes', 'public');
+        $validatedData['resume'] = $resumePath;
+    } elseif (!$request->hasFile('resume') && $application->resume) {
+        // Keep the existing resume if no new file is uploaded
+        $validatedData['resume'] = $application->resume;
     }
+
+    // Update the application record with validated data
+    $application->update($validatedData);
+
+    // Check if the update was successful and set the session message
+    if ($application) {
+        session()->flash('success', 'Application Updated Successfully');
+        return redirect()->route('upload.index');
+    } else {
+        session()->flash('error', 'A problem occurred');
+        return redirect()->route('upload.index');
+    }
+}
 
     public function delete($id)
     {
