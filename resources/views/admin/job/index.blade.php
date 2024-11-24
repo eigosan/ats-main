@@ -52,7 +52,7 @@
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a href="{{ route('jobs.view', $form->id) }}" type="button"
-                                                        class="btn btn-success">View</a>
+                                                        class="btn btn-success">Open Pipeline</a>
 
                                                 </div>
 
