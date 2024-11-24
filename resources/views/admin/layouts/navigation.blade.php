@@ -26,10 +26,10 @@
                     </x-nav-link>
                 </div>
 
-                <!-- Add the Filter Resume Link here -->
+                <!-- Add the Candidates Link here -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('resume.index')" :active="request()->routeIs('resume.index')" class="text-slate-50 hover:text-cyan-400">
-                        {{ __('Filter Resume') }}
+                        {{ __('Candidates') }}
                     </x-nav-link>
                 </div>
             </div>

@@ -23,6 +23,7 @@ class JobPosting extends Model
         'job_category',
         'job_type',
         'organization_id',
+        'status',
     ];
 
 }

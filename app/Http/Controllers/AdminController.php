@@ -20,7 +20,7 @@ class AdminController extends Controller
         $jobsTotal = $jobs->count(); // Count of job postings
 
         // Retrieve all organizations
-        $departments = Organization::all();
+        $departments = Organization::withCount('jobPostings')->get();
         $totalDepartments = $departments->count(); // Count of organizations
 
         // Pass all necessary data to the view

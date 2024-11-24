@@ -60,7 +60,7 @@
                             <thead class="table-primary">
                                 <tr>
                                     <th>Organization Name</th>
-                                    <th>Job Count</th>
+                                    <th>Job</th>
                                     <th>Location</th>
                                     <th>Owner</th>
                                     <th>Created Date</th>

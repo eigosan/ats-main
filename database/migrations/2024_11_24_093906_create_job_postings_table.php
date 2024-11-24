@@ -20,6 +20,8 @@ return new class extends Migration {
             $table->string('job_category');
             $table->string('job_type')->default('Full-time');
             $table->timestamps();
+            $table->enum('status', ['draft', 'open', 'closed'])->default('draft'); // Added status column
+            $table->timestamps();
 
             $table->foreign('organization_id')->references('id')->on('organization')->onDelete('cascade');
         });

@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\JobPosting;
 use App\Models\organization;
+use App\Models\ApplicationForm;
 
 class JobPostingController extends Controller
 {
@@ -63,8 +64,9 @@ class JobPostingController extends Controller
 
     public function view($id)
     {
-        $jobs = JobPosting::find($id);
-        return view('admin.job.view', compact('jobs'));
+        $jobs = JobPosting::findOrFail($id);
+        $applicants = ApplicationForm::all(); // Fetch all applicants
+        return view('admin.job.view', compact('applicants', 'jobs'));
     }
 
     public function edit($id)
@@ -112,5 +114,33 @@ class JobPostingController extends Controller
         }
 
     }
+
+
+    public function updateStatus(Request $request, $id)
+    {
+        $applicant = ApplicationForm::findOrFail($id);
+        $applicant->update(['status' => $request->status]);
+
+        return response()->json(['message' => 'Status updated successfully']);
+    }
+    public function updateJobStatus(Request $request, $id)
+    {
+        // Validate the status input
+        $validated = $request->validate([
+            'status' => 'required|in:draft,open,closed',  // Ensure the status is valid
+        ]);
+
+        // Find the job by ID
+        $job = JobPosting::findOrFail($id);
+
+        // Update the job status
+        $job->status = $request->status;
+        $job->save();  // Save the updated job status to the database
+
+        // Return a JSON response to confirm the update
+        return response()->json(['message' => 'Job status updated successfully']);
+    }
+
+
 
 }

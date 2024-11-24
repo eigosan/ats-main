@@ -1,80 +1,55 @@
 <x-admin-app-layout>
-    <div class="py-6">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h1>MAPAPALITAN TO, MAGIGING JOB PIPELINE</h1>
-                    <div class="container">
-                        <div class="d-flex align-items-center justify-content-between text-end pb-2">
-                            <h1></h1>
-                            <a href="{{ route('jobs.index') }}" type="button" class="btn btn-primary">Return</a>
-                        </div>
-
-                        <div class="p-3 shadow-sm sm:rounded-lg ">
-                            <div class="row">
-                                <div class="col">
-                                    <h1 class="font-semibold text-xl text-gray-800 leading-tight">
-                                        {{ $jobs->job_title }}
-                                    </h1>
-                                </div>
-                                <div class="col">
-                                    <h2><strong>{{ $jobs->job_type }}</strong> </h2>
-                                </div>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __($jobs->job_title) }}
+        </h2>
+        <!-- Status Dropdown -->
+        <label for="statusDropdown" class="text-sm font-medium text-gray-700">Status</label>
+        <div class="flex items-center">
+            <!-- Status Select Dropdown -->
+            <select id="statusDropdown" class="form-select block w-40 py-2 px-4 border rounded-lg"
+                data-job-id="{{ $jobs->id }}">
+                <option value="draft" @if ($jobs->status == 'draft') selected @endif>Draft</option>
+                <option value="open" @if ($jobs->status == 'open') selected @endif>Open</option>
+                <option value="closed" @if ($jobs->status == 'closed') selected @endif>Closed</option>
+            </select>
+        </div>
+    </x-slot>
+    <div class="max-w-full mx-auto sm:px-4 lg:px-6">
+        <div class="kanban-scroll-container"
+            style="overflow-x: auto; white-space: nowrap; padding: 10px; border: 1px solid #ddd; border-radius: 10px;">
+            <div class="kanban-container row flex-nowrap" style="display: inline-flex; gap: 20px;">
+                @foreach (['new', 'selection', 'in_review', 'shortlisted', 'rejected', 'hired'] as $status)
+                    <div class="col-md-3"
+                        style="flex: 0 0 auto; width: 300px; margin-right: 10px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);">
+                        <div class="card border-secondary mb-3"
+                            style="border-radius: 10px; border: none; overflow: hidden;">
+                            <div class="card-header bg-secondary text-white text-center"
+                                style="border-bottom: 2px solid #ccc; font-weight: bold;">
+                                {{ ucfirst(str_replace('_', ' ', $status)) }}
                             </div>
-                            <div class="col pt-2">
-                                <h2><strong>{{ $jobs->company }}</strong> </h2>
-                            </div>
-                            <div class="col pt-2">
-                                <p>{{ $jobs->address }}</p>
-                            </div>
-                        </div>
-
-                        <div class="p-3 shadow-sm sm:rounded-lg ">
-                            <p><strong>{{ $jobs->job_category }}</strong> </p>
-                            <textarea readonly name="job_description" id="job_description" class="mt-1 p-1 form-control rounded border-none text-sm"
-                                rows="10" style="overflow:auto; resize:vertical;" placeholder="(Optional)">{{ $jobs->job_description }}</textarea>
-
-                        </div>
-                        <div class=" d-flex align-items-end justify-content-end pt-2">
-                            <div class="btn-group">
-                                <a href="{{ route('jobs.edit', $jobs->id) }}" type="button"
-                                    class="btn btn-warning">Edit</a>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#exampleModal">
-                                    Delete
-                                </button>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                    <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h1 class="modal-title fs-5" id="exampleModalLabel">
-                                        Warning</h1>
-                                </div>
-                                <div class="modal-body">
-                                    Are you sure you want to delete your Job listing?
-                                </div>
-                                <div class="modal-footer">
-                                    <form action="{{ route('jobs.delete', $jobs->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Yes</button>
-                                    </form>
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                                        aria-label="Close">No</button>
-                                </div>
+                            <div class="card-body kanban-column" data-status="{{ $status }}"
+                                style="max-height: 500px; overflow-y: auto; padding: 10px; background-color: #ffffff;">
+                                @foreach ($applicants->where('status', $status) as $applicant)
+                                    <div class="card mb-2 kanban-item" data-id="{{ $applicant->id }}"
+                                        style="border-radius: 8px; border: 1px solid #e0e0e0; background-color: #fdfdfd;">
+                                        <div class="card-body" style="padding: 10px;">
+                                            <h5 class="card-title"
+                                                style="font-size: 16px; font-weight: 600; color: #333;">
+                                                {{ $applicant->first_name }} {{ $applicant->last_name }}
+                                            </h5>
+                                            <p class="card-text" style="font-size: 14px; color: #555;">
+                                                <strong>Email:</strong> {{ $applicant->email }} <br>
+                                                <strong>Position:</strong> {{ $applicant->job_position }}
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
-                </div>
+                @endforeach
             </div>
         </div>
-    </div>
     </div>
 </x-admin-app-layout>

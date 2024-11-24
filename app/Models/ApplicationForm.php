@@ -33,6 +33,7 @@ class ApplicationForm extends Model
         'job_description',
         'skills',
         'resume',
-        'user_id'
+        'user_id',
+        'status',
     ];
 }

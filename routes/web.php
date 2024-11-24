@@ -64,6 +64,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
+    // try
+    Route::post('/applicants/{id}/update-status', [JobPostingController::class, 'updateStatus']);
+    Route::post('/jobs/update-status/{id}', [JobPostingController::class, 'updateJobStatus'])->name('jobs.updateStatus');
+
+
     Route::get('/jobs', [JobPostingController::class, 'index'])->name('jobs.index');
     Route::get('/jobs/create/{id}', [JobPostingController::class, 'create'])->name('jobs.create');
     Route::post('/jobs/store', [JobPostingController::class, 'store'])->name('jobs.store');
@@ -71,6 +76,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/jobs/edit/{id}', [JobPostingController::class, 'edit'])->name('jobs.edit');
     Route::put('/jobs/update/{id}', [JobPostingController::class, 'update'])->name('jobs.update');
     Route::delete('/jobs/delete/{id}', [JobPostingController::class, 'delete'])->name('jobs.delete');
+
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {

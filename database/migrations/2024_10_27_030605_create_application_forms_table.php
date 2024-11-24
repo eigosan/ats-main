@@ -29,6 +29,7 @@ return new class extends Migration {
             $table->text('job_description')->nullable();
             $table->text('skills')->nullable();
             $table->string('resume');
+            $table->string('status')->default('new');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
