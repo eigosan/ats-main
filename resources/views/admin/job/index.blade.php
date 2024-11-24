@@ -32,9 +32,9 @@
                                     <tr>
                                         <th>Title</th>
                                         <th>Company</th>
-                                        <th>Type</th>
-                                        <th>Address</th>
                                         <th>Organization</th>
+                                        <th>Type</th>
+                                        <th>Status</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -45,10 +45,9 @@
                                                 <p>{{ $form->job_title }}</p>
                                             </td>
                                             <td class="align-middle">{{ $form->company }}</td>
-                                            <td class="align-middle">{{ $form->job_type }}</td>
-                                            <td class="align-middle">{{ $form->address }}</td>
                                             <td class="align-middle">{{ $form->organization->organization_name }}</td>
-
+                                            <td class="align-middle">{{ $form->job_type }}</td>
+                                            <td class="align-middle">{{ $form->status }}</td>
                                             <td>
                                                 <div class="btn-group" role="group">
                                                     <a href="{{ route('jobs.view', $form->id) }}" type="button"
