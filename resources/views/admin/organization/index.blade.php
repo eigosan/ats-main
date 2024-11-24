@@ -76,7 +76,7 @@
                                                     class="text-decoration-none">{{ $organization->organization_name }}</a>
                                             </div>
                                         </td>
-                                        <td>{{ $organization->jobs_count }}</td>
+                                        <td>{{ $organization->job_postings_count }}</td>
                                         <td>{{ $organization->location }}</td>
                                         <td>{{ $organization->owner }}</td>
                                         <td>{{ $organization->created_at->format('Y-m-d') }}</td>

@@ -12,10 +12,16 @@ class OrganizationController extends Controller
 
     public function index()
     {
-        $departments = Organization::all();
+        // Fetch all organizations with their related job postings count
+        $departments = Organization::withCount('jobPostings')->get();
+
+        // Total number of organizations
         $totalDepartments = $departments->count();
+
         return view('admin.organization.index', compact('departments', 'totalDepartments'));
     }
+
+
 
     public function store(Request $request)
     {
@@ -36,18 +42,6 @@ class OrganizationController extends Controller
         }
     }
 
-    // public function view($id, Request $request)
-    // {
-    //     $organization = Organization::findOrFail($id);
-    //     // Get the tab from the query parameter, defaulting to 'jobs'
-    //     $activeTab = $request->query('tab', 'jobs');
-    //     $jobPosting = JobPosting::where('user_id', $userId)->get();
-    //     return view('admin.organization.view', [
-    //         'organization' => $organization,
-    //         'activeTab' => $activeTab,
-    //         'jobPosting' => $jobPosting,
-    //     ]);
-    // }
 
     public function view($id, Request $request)
     {
