@@ -18,7 +18,7 @@
                                     <p>Name: <strong>{{ $form->first_name }} {{ $form->last_name }}</strong></p>
                                 </div>
                                 <div class="col pt-2">
-                                    <p>Job Position: <strong>{{ $form->job_position }}</strong> </p>
+                                    <p>Job Position: <strong>{{ $form->age }}</strong> </p>
                                 </div>
                                 <div class="col pt-2">
                                     <p>Email: <strong>{{ $form->email }}</strong></p>

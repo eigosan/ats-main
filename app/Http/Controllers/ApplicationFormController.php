@@ -33,7 +33,7 @@ class ApplicationFormController extends Controller
             'last_name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone_number' => 'required|string|max:15',
-            'job_position' => 'required|string|max:255',
+            'age' => 'required|integer|min:0|max:120',
             'education_level' => 'required|string|max:255',
             'other_education' => 'nullable|string|max:255',
             'graduation_year' => 'required|integer|min:1900|max:' . date('Y'),

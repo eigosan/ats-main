@@ -21,7 +21,7 @@ class ApplicationForm extends Model
         'last_name',
         'email',
         'phone_number',
-        'job_position',
+        'age',
         'education_level',
         'other_education',
         'graduation_year',

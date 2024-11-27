@@ -28,7 +28,7 @@ class OrganizationController extends Controller
         $validatedData = $request->validate([
             'organization_name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
-            'description' => 'required|string|max:1000',
+            'description' => 'nullable|string|max:1000',
         ]);
 
         Organization::create($validatedData);

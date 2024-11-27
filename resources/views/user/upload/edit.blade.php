@@ -9,9 +9,10 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
-                    <form action="{{ route('upload.update', $application->id) }}" method="POST" enctype="multipart/form-data">   <!-- added enctype -->
-                        @csrf           <!-- moved these 2 out of the container -->
-                        @method('PUT')  <!-- moved these 2 out of the container -->
+                    <form action="{{ route('upload.update', $application->id) }}" method="POST"
+                        enctype="multipart/form-data"> <!-- added enctype -->
+                        @csrf <!-- moved these 2 out of the container -->
+                        @method('PUT') <!-- moved these 2 out of the container -->
                         <div class="container">
                             <div class="row mb-2">
                                 <div class="container">
@@ -46,10 +47,10 @@
                                         <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                                     </div>
                                     <div class="mt-1">
-                                        <x-input-label for="job_position" :value="__('Job Position')" />
-                                        <x-text-input id="job_position" class="mt-1 p-1 w-full text-sm" type="text"
-                                            name="job_position" value="{{ $application->job_position }}" required />
-                                        <x-input-error :messages="$errors->get('job_position')" class="mt-2" />
+                                        <x-input-label for="age" :value="__('Age')" />
+                                        <x-text-input id="age" class="mt-1 p-1 w-full text-sm" type="number"
+                                            name="age" value="{{ $application->age }}" required />
+                                        <x-input-error :messages="$errors->get('age')" class="mt-2" />
                                     </div>
 
                                     <!-- Education Section -->

@@ -41,10 +41,10 @@
                                 <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                             </div>
                             <div class="mt-1">
-                                <x-input-label for="job_position" :value="__('Job Position')" />
-                                <x-text-input id="job_position" class="mt-1 p-1 w-full text-sm" type="text"
-                                    name="job_position" required />
-                                <x-input-error :messages="$errors->get('job_position')" class="mt-2" />
+                                <x-input-label for="age" :value="__('Age')" />
+                                <x-text-input id="age" class="mt-1 p-1 w-full text-sm" type="number"
+                                    name="age" required />
+                                <x-input-error :messages="$errors->get('age')" class="mt-2" />
                             </div>
 
                             <!-- Education Section -->

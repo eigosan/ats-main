@@ -28,7 +28,7 @@
                                         <th>Name</th>
                                         <th>Email Address</th>
                                         <th>Phone Number</th>
-                                        <th>Job Position</th>
+                                        <th>Age</th>
                                         <th>Resume</th>
 
                                         <th></th>
@@ -42,7 +42,7 @@
                                             </td>
                                             <td class="align-middle">{{ $form->email }}</td>
                                             <td class="align-middle">{{ $form->phone_number }}</td>
-                                            <td class="align-middle">{{ $form->job_position }}</td>
+                                            <td class="align-middle">{{ $form->age }}</td>
                                             <td class="align-middle">
                                                 @if ($form->resume)
                                                     <!-- If the resume exists, show the button -->

@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('phone_number');
-            $table->string('job_position');
+            $table->integer('age');
             $table->string('education_level');
             $table->string('other_education')->nullable();
             $table->integer('graduation_year');

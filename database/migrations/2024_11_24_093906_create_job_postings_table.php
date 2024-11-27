@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->text('job_description');
             $table->string('job_category');
             $table->string('job_type')->default('Full-time');
-            $table->timestamps();
             $table->enum('status', ['draft', 'open', 'closed'])->default('draft'); // Added status column
             $table->timestamps();
 

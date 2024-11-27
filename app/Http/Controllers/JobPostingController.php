@@ -125,10 +125,6 @@ class JobPostingController extends Controller
     }
     public function updateJobStatus(Request $request, $id)
     {
-        // Validate the status input
-        $validated = $request->validate([
-            'status' => 'required|in:draft,open,closed',  // Ensure the status is valid
-        ]);
 
         // Find the job by ID
         $job = JobPosting::findOrFail($id);
