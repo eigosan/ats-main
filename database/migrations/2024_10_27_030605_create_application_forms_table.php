@@ -31,6 +31,7 @@ return new class extends Migration {
             $table->string('resume');
             $table->string('status')->default('new');
             $table->timestamps();
+            $table->float('match_score')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

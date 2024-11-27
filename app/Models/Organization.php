@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class organization extends Model
+class Organization extends Model
 {
     use HasFactory;
 
@@ -13,7 +13,7 @@ class organization extends Model
     {
         return $this->hasMany(JobPosting::class, 'organization_id', 'id');
     }
-    // 
+    //
     protected $table = 'organization';
 
     protected $fillable = [
